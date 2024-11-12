@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import static jakarta.persistence.GenerationType.*;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -17,13 +19,21 @@ public class User {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
 
-    //@JsonProperty("lastName")
+    @NotBlank
     private String lastname;
 
+    @NotEmpty
+    @Email
     private String email;
+    
+    @NotEmpty
+    @Size(min = 4, max = 12)
     private String username;
+    
+    @NotEmpty
     private String password;
 
     public Long getId() {
