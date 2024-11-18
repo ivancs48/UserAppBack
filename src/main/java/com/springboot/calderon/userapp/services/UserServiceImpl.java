@@ -63,7 +63,6 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public Optional<User> update(UserDTO user, Long id) {
     	Optional<User> userOptional = repository.findById(id);
-    	List<Roles> roles = new ArrayList<>();
 
         if (userOptional.isPresent()) {
             User userDb = userOptional.get();

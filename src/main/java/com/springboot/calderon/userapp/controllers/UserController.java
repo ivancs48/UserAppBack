@@ -30,7 +30,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PutMapping;
 
-@CrossOrigin(origins = {"http://localhost:4200/"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -44,7 +44,7 @@ public class UserController {
     }
     
     @GetMapping("/page/{page}")
-    public Page<User> listPageble(@PathVariable Integer page) {
+    public Page<User> listPageable(@PathVariable Integer page) {
     	Pageable pageable = PageRequest.of(page, 5);
         return service.findAll(pageable);
     }
