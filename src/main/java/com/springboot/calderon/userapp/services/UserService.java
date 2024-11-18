@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 
 import com.springboot.calderon.userapp.entities.User;
+import com.springboot.calderon.userapp.models.UserDTO;
 
 public interface UserService {
 
@@ -19,5 +20,7 @@ public interface UserService {
 
     User save(User user);
 
+    Optional<User> update(UserDTO user, Long id);
+    
     void deleteById(Long id);
 }

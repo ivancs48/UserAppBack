@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.calderon.userapp.entities.User;
+import com.springboot.calderon.userapp.models.UserDTO;
 import com.springboot.calderon.userapp.services.UserService;
 
 import jakarta.validation.Valid;
@@ -67,21 +68,15 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody User user, BindingResult result) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UserDTO user, BindingResult result) {
     	if(result.hasErrors()) {
     		return validation(result);
     	}
     	
-        Optional<User> userOptional = service.findById(id);
+        Optional<User> userOptional = service.update(user, id);
 
         if (userOptional.isPresent()) {
-            User userDb = userOptional.get();
-            userDb.setEmail(user.getEmail());
-            userDb.setLastname(user.getLastname());
-            userDb.setName(user.getName());
-            userDb.setPassword(user.getPassword());
-            userDb.setUsername(user.getUsername());
-            return ResponseEntity.ok(service.save(userDb));
+            return ResponseEntity.ok(userOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
